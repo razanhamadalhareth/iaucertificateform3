@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>استمارة طلب خدمات إضافية — جامعة الإمام عبدالرحمن بن فيصل</title>
+<link href="razan.css" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0b1f3a;
+  --navy-2:#162d4e;
+  --gold:#c9a84c;
+  --gold-2:#e2bf6e;
+  --gold-bg:#fdf8ee;
+  --gold-border:#e8d49a;
+  --white:#ffffff;
+  --surface:#f7f8fa;
+  --surface-2:#f0f2f6;
+  --border:#e2e6ed;
+  --border-2:#cbd1dc;
+  --text-1:#0b1f3a;
+  --text-2:#4a5568;
+  --text-3:#8a93a6;
+  --success:#0d7a4e;
+  --success-bg:#eaf7f1;
+  --error:#c0392b;
+  --error-bg:#fdf1f0;
+  --focus-ring:rgba(201,168,76,0.22);
+  --radius:10px;
+  --radius-lg:16px;
+  --radius-xl:22px;
+  --ease:cubic-bezier(.4,0,.2,1);
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Cairo',sans-serif;
+  background:var(--surface);
+  color:var(--text-1);
+  min-height:100vh;
+  direction:rtl;
+  font-size:14px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+ 
+/* ── Header ── */
+.hdr{
+  background:var(--navy);
+  border-bottom:1px solid rgba(255,255,255,.06);
+  position:sticky;top:0;z-index:200;
+}
+.hdr-inner{
+  max-width:900px;margin:0 auto;padding:0 28px;
+  height:68px;display:flex;align-items:center;gap:14px;
+}
+.hdr-emblem{
+  width:46px;height:46px;border-radius:50%;
+  background:#fff;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;overflow:hidden;
+  border:2px solid rgba(201,168,76,0.5);padding:3px;
+}
+.hdr-emblem img{width:100%;height:100%;object-fit:contain;border-radius:50%}
+.hdr-names{line-height:1.25}
+.hdr-title{font-size:14px;font-weight:700;color:#fff;letter-spacing:-.2px}
+.hdr-sub{font-size:10.5px;color:rgba(255,255,255,.4);font-weight:400;margin-top:1px}
+.hdr-sep{width:1px;height:28px;background:rgba(255,255,255,.1);margin:0 6px;flex-shrink:0}
+.hdr-dept{font-size:12px;color:rgba(255,255,255,.55);font-weight:500}
+ 
+/* ── Page layout ── */
+.page{max-width:900px;margin:0 auto;padding:36px 24px 80px}
+ 
+/* ── Section Cards ── */
+.section-card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--radius-xl);overflow:hidden;margin-bottom:28px;
+}
+.section-head{
+  background:var(--navy);padding:22px 30px;
+  display:flex;align-items:center;gap:14px;
+  position:relative;overflow:hidden;
+}
+.section-head::after{
+  content:'';position:absolute;top:-30px;left:-30px;
+  width:120px;height:120px;border-radius:50%;
+  background:rgba(201,168,76,.08);pointer-events:none;
+}
+.section-num{
+  width:36px;height:36px;border-radius:50%;
+  background:rgba(201,168,76,.18);border:1.5px solid rgba(201,168,76,.4);
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:800;color:var(--gold-2);flex-shrink:0;
+  position:relative;z-index:1;
+}
+.section-info{position:relative;z-index:1}
+.section-head h2{font-size:17px;font-weight:800;color:#fff;letter-spacing:-.3px}
+.section-head p{font-size:12px;color:rgba(255,255,255,.5);margin-top:3px;font-weight:400}
+.section-body{padding:28px 30px 32px}
+ 
+/* ── Fields ── */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+.col-full{grid-column:1/-1}
+@media(max-width:620px){.grid-2,.grid-3{grid-template-columns:1fr}}
+ 
+.fgroup{display:flex;flex-direction:column;gap:6px}
+.flabel{font-size:12.5px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:4px}
+.req{color:var(--error);font-size:13px;line-height:1}
+.finput{
+  border:1.5px solid var(--border);border-radius:var(--radius);
+  padding:10px 14px;font-family:'Cairo',sans-serif;
+  font-size:13.5px;color:var(--navy);background:var(--white);
+  width:100%;transition:border-color .15s var(--ease),box-shadow .15s var(--ease),background .15s;
+  outline:none;direction:rtl;appearance:none;
+}
+.finput::placeholder{color:var(--text-3);font-weight:400}
+.finput:hover{border-color:var(--border-2)}
+.finput:focus{border-color:var(--gold);background:var(--gold-bg);box-shadow:0 0 0 4px var(--focus-ring)}
+.finput.err{border-color:var(--error);background:var(--error-bg)}
+select.finput{cursor:pointer}
+textarea.finput{min-height:80px;resize:vertical}
+.errmsg{font-size:11.5px;color:var(--error);font-weight:600;display:none;align-items:center;gap:4px}
+.errmsg.show{display:flex}
+.hint{font-size:11.5px;color:var(--text-3);margin-top:2px}
+ 
+/* ── Toggle ── */
+.toggle-card{
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--surface);border:1.5px solid var(--border);
+  border-radius:var(--radius);padding:14px 18px;margin-bottom:22px;
+  cursor:pointer;transition:border-color .15s,background .15s;
+}
+.toggle-card:hover{border-color:var(--border-2)}
+.toggle-card.on{border-color:var(--gold-border);background:var(--gold-bg)}
+.tc-t{font-size:13.5px;font-weight:700;color:var(--navy)}
+.tc-s{font-size:12px;color:var(--text-3);margin-top:2px}
+.sw{width:44px;height:24px;position:relative;flex-shrink:0}
+.sw input{opacity:0;width:0;height:0}
+.sw-track{
+  position:absolute;inset:0;background:var(--border-2);
+  border-radius:99px;transition:.25s var(--ease);cursor:pointer;
+}
+.sw-track::before{
+  content:'';position:absolute;width:18px;height:18px;
+  background:#fff;border-radius:50%;top:3px;right:3px;
+  transition:.25s cubic-bezier(.34,1.56,.64,1);
+  box-shadow:0 1px 4px rgba(0,0,0,.2);
+}
+.sw input:checked~.sw-track{background:var(--gold)}
+.sw input:checked~.sw-track::before{right:23px}
+.cond-section{
+  display:none;opacity:0;transform:translateY(-6px);
+  transition:opacity .25s var(--ease),transform .25s var(--ease);
+}
+.cond-section.open{display:block;opacity:1;transform:none}
+ 
+/* ── Services ── */
+.svc-group{border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:20px}
+.svc-group-hdr{background:var(--navy);padding:10px 18px;font-size:11.5px;font-weight:700;color:rgba(255,255,255,.65);letter-spacing:.5px;text-transform:uppercase}
+.svc-row{
+  display:grid;grid-template-columns:1fr 90px 60px;
+  align-items:center;gap:12px;
+  padding:13px 18px;border-top:1px solid var(--border);
+  transition:background .15s;cursor:pointer;
+}
+.svc-row:first-of-type{border-top:none}
+.svc-row:hover{background:var(--surface)}
+.svc-row.picked{background:var(--gold-bg);border-right:3px solid var(--gold)}
+.svc-check{display:flex;align-items:center;gap:10px}
+.svc-check input[type=checkbox]{width:17px;height:17px;accent-color:var(--gold);cursor:pointer;flex-shrink:0}
+.svc-name{font-size:13px;font-weight:600;color:var(--text-1);line-height:1.4}
+.svc-badge{font-size:12.5px;font-weight:700;color:var(--gold);white-space:nowrap;text-align:center}
+.svc-qty{
+  width:54px;border:1.5px solid var(--border);border-radius:8px;
+  padding:5px 6px;font-family:'Cairo',sans-serif;font-size:13px;
+  text-align:center;color:var(--navy);background:var(--white);
+  direction:ltr;transition:border-color .15s,box-shadow .15s;
+}
+.svc-qty:focus{border-color:var(--gold);box-shadow:0 0 0 3px var(--focus-ring);outline:none}
+.svc-qty:disabled{background:var(--surface);color:var(--text-3)}
+ 
+/* ── Totals ── */
+.totals-box{
+  background:var(--navy);border-radius:var(--radius-lg);
+  padding:22px 24px;margin-top:24px;
+}
+.tot-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0}
+.tot-row .tl{font-size:12.5px;color:rgba(255,255,255,.5);font-weight:600}
+.tot-row .tv{font-size:13px;color:rgba(255,255,255,.85);font-weight:700}
+.tot-divider{height:1px;background:rgba(255,255,255,.08);margin:8px 0}
+.tot-row.final .tl{font-size:14px;color:var(--gold-2);font-weight:700}
+.tot-row.final .tv{font-size:20px;color:#fff;font-weight:800}
+ 
+/* ── File Upload ── */
+.upload-zone{
+  border:2px dashed var(--border-2);border-radius:var(--radius);
+  padding:24px 20px;text-align:center;cursor:pointer;
+  transition:border-color .15s,background .15s;
+  background:var(--surface);position:relative;overflow:hidden;
+}
+.upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.upload-zone:hover{border-color:var(--gold);background:var(--gold-bg)}
+.upload-zone.filled{border-color:var(--success);background:var(--success-bg);border-style:solid}
+.uz-icon{font-size:24px;margin-bottom:8px;display:block}
+.uz-title{font-size:13px;font-weight:700;color:var(--navy)}
+.uz-hint{font-size:11.5px;color:var(--text-3);margin-top:3px}
+.uz-fname{font-size:12px;color:var(--success);font-weight:700;margin-top:6px}
+ 
+/* ── Address conditional ── */
+.infobox{
+  background:#eef5fb;border:1px solid #b8d5ee;border-radius:var(--radius);
+  padding:12px 16px;display:flex;gap:10px;align-items:flex-start;margin-bottom:22px;
+}
+.infobox p{font-size:12.5px;color:#1a4a6b;font-weight:600;line-height:1.6}
+ 
+/* ── Pledge ── */
+.pledge-box{
+  background:var(--navy);border-radius:var(--radius-lg);
+  padding:24px 26px;color:rgba(255,255,255,.8);
+  font-size:13.5px;line-height:1.9;margin-bottom:22px;
+}
+.pledge-box strong{color:var(--gold-2);font-weight:700}
+.check-row{
+  display:flex;align-items:flex-start;gap:12px;
+  background:var(--surface);border:1.5px solid var(--border);
+  border-radius:var(--radius);padding:13px 16px;margin-bottom:18px;
+  cursor:pointer;transition:border-color .15s,background .15s;
+}
+.check-row:hover{border-color:var(--border-2)}
+.check-row.checked{border-color:var(--gold-border);background:var(--gold-bg)}
+.check-row input[type=checkbox]{width:18px;height:18px;margin-top:1px;flex-shrink:0;accent-color:var(--gold);cursor:pointer}
+.check-row label{font-size:13.5px;font-weight:600;color:var(--navy);cursor:pointer;line-height:1.5}
+ 
+/* ── Signature ── */
+#sigCanvas{
+  border:1.5px solid var(--border);border-radius:var(--radius);
+  cursor:crosshair;width:100%;display:block;
+  background:var(--surface);touch-action:none;transition:border-color .15s;
+}
+#sigCanvas:hover{border-color:var(--border-2)}
+.sig-actions{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+.sig-hint{font-size:11.5px;color:var(--text-3)}
+.btn-clr{
+  font-family:'Cairo',sans-serif;font-size:12px;font-weight:700;
+  color:var(--error);background:none;border:1px solid var(--border);
+  border-radius:8px;padding:5px 14px;cursor:pointer;transition:all .15s;
+}
+.btn-clr:hover{border-color:var(--error);background:var(--error-bg)}
+ 
+/* ── Payment ── */
+.pay-total-banner{
+  background:var(--gold-bg);border:1px solid var(--gold-border);
+  border-radius:var(--radius);padding:16px 22px;
+  display:flex;justify-content:space-between;align-items:center;margin-bottom:26px;
+}
+.pay-total-banner .lbl{font-size:12px;color:var(--text-2);font-weight:600}
+.pay-total-banner .amt{font-size:24px;font-weight:800;color:var(--navy)}
+.card-vis{
+  background:var(--navy);border-radius:16px;padding:24px;
+  margin-bottom:24px;min-height:155px;position:relative;overflow:hidden;
+}
+.card-vis::before{
+  content:'';position:absolute;top:-40px;right:-40px;
+  width:160px;height:160px;border-radius:50%;background:rgba(201,168,76,.08);
+}
+.card-chip{width:36px;height:28px;background:var(--gold);border-radius:5px;margin-bottom:18px;position:relative}
+.card-chip::before{content:'';position:absolute;inset:5px 7px;border:1px solid rgba(0,0,0,.2);border-radius:2px}
+.card-num{font-size:18px;font-weight:700;letter-spacing:3px;color:#fff;margin-bottom:16px;direction:ltr}
+.card-btm{display:flex;justify-content:space-between;align-items:flex-end;position:relative}
+.card-lbl{font-size:10px;color:rgba(255,255,255,.45);letter-spacing:.5px;margin-bottom:2px}
+.card-val{font-size:13px;color:#fff;font-weight:700}
+.save-row{margin-top:14px}
+ 
+.bank-info{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:16px 20px;margin-top:20px;
+}
+.bank-t{font-size:11.5px;font-weight:700;color:var(--text-3);letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px}
+.bank-row{display:flex;justify-content:space-between;align-items:baseline;padding:7px 0;border-bottom:1px solid var(--border);font-size:12.5px}
+.bank-row:last-child{border-bottom:none;padding-bottom:0}
+.bank-row .bl{color:var(--text-3);font-weight:500}
+.bank-row .bv{color:var(--navy);font-weight:700;direction:ltr}
+ 
+/* ── Submit Button ── */
+.submit-wrap{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--radius-xl);padding:28px 30px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:20px;
+}
+.submit-note{font-size:12px;color:var(--text-3);max-width:400px;line-height:1.6}
+.btn-submit{
+  font-family:'Cairo',sans-serif;font-size:15px;font-weight:800;
+  border:none;border-radius:var(--radius);padding:14px 36px;
+  cursor:pointer;display:inline-flex;align-items:center;gap:10px;
+  background:var(--navy);color:#fff;white-space:nowrap;
+  box-shadow:0 2px 6px rgba(11,31,58,.2),0 6px 20px rgba(11,31,58,.15);
+  transition:all .2s var(--ease);
+}
+.btn-submit:hover{background:var(--navy-2);transform:translateY(-1px);box-shadow:0 4px 12px rgba(11,31,58,.25),0 8px 28px rgba(11,31,58,.18)}
+.btn-submit:active{transform:translateY(0)}
+@media(max-width:580px){.submit-wrap{flex-direction:column;text-align:center}.btn-submit{width:100%;justify-content:center}}
+ 
+/* ── Success ── */
+.success-overlay{
+  display:none;position:fixed;inset:0;background:rgba(11,31,58,.6);
+  z-index:999;align-items:center;justify-content:center;padding:24px;
+}
+.success-overlay.show{display:flex;animation:fadeIn .3s ease}
+.success-modal{
+  background:var(--white);border-radius:var(--radius-xl);
+  padding:48px 40px;text-align:center;max-width:480px;width:100%;
+  animation:popIn .4s cubic-bezier(.34,1.56,.64,1);
+}
+.success-check{
+  width:76px;height:76px;border-radius:50%;background:var(--success);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 20px;
+}
+.success-check svg{width:34px;height:34px}
+.success-modal h2{font-size:22px;font-weight:800;color:var(--navy);margin-bottom:8px}
+.success-modal p{font-size:13px;color:var(--text-2);margin-bottom:24px;line-height:1.8}
+.ref-box{
+  background:var(--gold-bg);border:1px solid var(--gold-border);
+  border-radius:var(--radius);padding:14px 24px;margin-bottom:24px;display:inline-block;
+}
+.ref-box .rl{font-size:11px;color:var(--text-3);font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:4px}
+.ref-box .rv{font-size:20px;font-weight:800;color:var(--navy);direction:ltr;letter-spacing:2px}
+.btn-close{
+  font-family:'Cairo',sans-serif;font-size:13.5px;font-weight:700;
+  background:var(--navy);color:#fff;border:none;border-radius:var(--radius);
+  padding:11px 28px;cursor:pointer;transition:all .2s;
+}
+.btn-close:hover{background:var(--navy-2)}
+ 
+/* sep */
+.sep{display:flex;align-items:center;gap:12px;margin:24px 0 18px}
+.sep-line{flex:1;height:1px;background:var(--border)}
+.sep-lbl{font-size:11px;font-weight:700;color:var(--text-3);white-space:nowrap;letter-spacing:.5px;text-transform:uppercase}
+ 
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes popIn{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+ 
+/* sticky summary bar */
+.sticky-bar{
+  position:fixed;bottom:0;left:0;right:0;
+  background:var(--navy);border-top:1px solid rgba(255,255,255,.1);
+  padding:10px 0;z-index:100;
+  transform:translateY(100%);transition:transform .3s var(--ease);
+}
+.sticky-bar.visible{transform:translateY(0)}
+.sticky-inner{
+  max-width:900px;margin:0 auto;padding:0 24px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+}
+.sticky-bar .sb-label{font-size:12px;color:rgba(255,255,255,.5);font-weight:600}
+.sticky-bar .sb-amt{font-size:18px;font-weight:800;color:var(--gold-2)}
+@media(max-width:580px){.sticky-bar .sb-label{display:none}}
+</style>
+</head>
+<body>
+ 
+<!-- Header -->
+<header class="hdr">
+  <div class="hdr-inner">
+    <div class="hdr-emblem">
+      <img src="data:image/jpeg;base64,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" alt="شعار الجامعة">
+    </div>
+    <div class="hdr-names">
+      <div class="hdr-title">جامعة الإمام عبدالرحمن بن فيصل</div>
+      <div class="hdr-sub">IMAM ABDULRAHMAN BIN FAISAL UNIVERSITY</div>
+    </div>
+    <div class="hdr-sep"></div>
+    <div class="hdr-dept">عمادة الدراسات العليا</div>
+  </div>
+</header>
+ 
+<!-- Page -->
+<div class="page">
+ 
+  <!-- ① بيانات الطالب -->
+  <div class="section-card">
+    <div class="section-head">
+      <div class="section-num">١</div>
+      <div class="section-info">
+        <h2>بيانات الطالب</h2>
+        <p>أدخل معلوماتك الشخصية والأكاديمية بدقة</p>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="grid-2">
+        <div class="fgroup">
+          <label class="flabel">الاسم الكامل <span class="req">*</span></label>
+          <input class="finput" id="f-name" type="text" placeholder="الاسم كما في الهوية الوطنية">
+          <span class="errmsg" id="e-name">هذا الحقل مطلوب</span>
+        </div>
+        <div class="fgroup">
+          <label class="flabel">الرقم الجامعي <span class="req">*</span></label>
+          <input class="finput" id="f-sid" type="text" placeholder="">
+          <span class="errmsg" id="e-sid">هذا الحقل مطلوب</span>
+        </div>
+        <div class="fgroup">
+          <label class="flabel">رقم الهوية / الإقامة <span class="req">*</span></label>
+          <input class="finput" id="f-id" type="text" placeholder="" maxlength="10">
+          <span class="errmsg" id="e-id">هذا الحقل مطلوب</span>
+        </div>
+        <div class="fgroup">
+          <label class="flabel">الكلية <span class="req">*</span></label>
+          <input class="finput" id="f-id" type="text" placeholder="" maxlength="10">
+          <span class="errmsg" id="e-id">هذا الحقل مطلوب</span>
+        </div>
+        <div class="fgroup">
+          <label class="flabel">البرنامج الدراسي <span class="req">*</span></label>
+          <input class="finput" id="f-prog" type="text" placeholder="مثال: ماجستير إدارة الأعمال">
+          <span class="errmsg" id="e-prog">هذا الحقل مطلوب</span>
+        </div>
+        <div class="fgroup">
+          <label class="flabel">سنة التخرج (هجري) <span class="req">*</span></label>
+          <select class="finput" id="f-yr">
+            <option value="">— اختر السنة —</option>
+            <option>1446</option><option>1445</option><option>1444</option>
+            <option>1443</option><option>1442</option><option>1441</option>
+            <option>1440</option><option>1439</option><option>1438</option>
+            <option>1437</option><option>1436</option>
+          </select>
+          <span class="errmsg" id="e-yr">يُرجى اختيار السنة</span>
+        </div>
+        <div class="fgroup">
+          <label class="flabel">البريد الإلكتروني الجامعي <span class="req">*</span></label>
+          <input class="finput" id="f-email" type="email" placeholder="student@iau.edu.sa" dir="ltr">
+          <span class="errmsg" id="e-email">أدخل بريداً إلكترونياً صحيحاً</span>
+        </div>
+        <div class="fgroup">
+          <label class="flabel">رقم الجوال <span class="req">*</span></label>
+          <input class="finput" id="f-phone" type="tel" placeholder="05xxxxxxxx" maxlength="10" dir="ltr">
+          <span class="errmsg" id="e-phone">أدخل رقم جوال سعودي صحيح</span>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- ② بيانات جهة -->
+  <div class="section-card">
+    <div class="section-head">
+      <div class="section-num">٢</div>
+      <div class="section-info">
+        <h2>بيانات الجهة الطالبة</h2>
+        <p>في حال كان التقديم نيابةً عن جهة رسمية</p>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="toggle-card" id="tcCard" onclick="toggleOrg()">
+        <div>
+          <div class="tc-t">التقديم نيابة عن جهة؟</div>
+          <div class="tc-s">فعّل هذا الخيار إذا كنت تتقدم بالنيابة عن مؤسسة أو جهة رسمية مع إرفاق خطاب تفويض</div>
+        </div>
+        <label class="sw" onclick="event.stopPropagation()">
+          <input type="checkbox" id="isOrg" onchange="toggleOrg()">
+          <span class="sw-track"></span>
+        </label>
+      </div>
+      <div class="cond-section" id="orgSec">
+        <div class="grid-2">
+          <div class="fgroup">
+            <label class="flabel">اسم الجهة <span class="req">*</span></label>
+            <input class="finput" id="f-oname" type="text" placeholder="الاسم الرسمي للجهة">
+          </div>
+        <div class="fgroup">
+          <label class="flabel">الدولة <span class="req">*</span></label>
+          <select class="finput" id="f-yr">
+            <option value="">— الدولة —</option>
+            <option>أذربيجان</option>
+            <option>أرتيريا (إريتريا)</option>
+            <option>أرمينيا</option>
+            <option>أستراليا</option>
+            <option>أفغانستان</option>
+            <option>ألبانيا</option>
+            <option>ألمانيا</option>
+            <option>أندورا</option>
+            <option>أنغولا</option>
+            <option>أنتيغوا وباربودا</option>
+            <option>الأرجنتين</option>
+            <option>الأردن</option>
+            <option>الإكوادور</option>
+            <option>الإمارات العربية المتحدة</option>
+            <option>الباهاما</option>
+            <option>البحرين</option>
+            <option>البرازيل</option>
+            <option>البرتغال</option>
+            <option>البوسنة والهرسك</option>
+            <option>الجزائر</option>
+            <option>الدنمارك</option>
+            <option>السلفادور</option>
+            <option>السنغال</option>
+            <option>السودان</option>
+            <option>السويد</option>
+            <option>الصومال</option>
+            <option>الصين</option>
+            <option>العراق</option>
+            <option>الفلبين</option>
+            <option>الكاميرون</option>
+            <option>الكويت</option>
+            <option>المغرب</option>
+            <option>المكسيك</option>
+            <option>المملكة العربية السعودية</option>
+            <option>المملكة المتحدة</option>
+            <option>النرويج</option>
+            <option>النمسا</option>
+            <option>الهند</option>
+            <option>الولايات المتحدة</option>
+            <option>اليابان</option>
+            <option>اليمن</option>
+            <option>آيسلندا</option>
+            <option>إثيوبيا</option>
+            <option>إسبانيا</option>
+            <option>إستونيا</option>
+            <option>إسرائيل</option>
+            <option>إندونيسيا</option>
+            <option>إيران</option>
+            <option>أيرلندا</option>
+            <option>إيطاليا</option>
+            <option>بابوا غينيا الجديدة</option>
+            <option>باراغواي</option>
+            <option>باكستان</option>
+            <option>بالاو</option>
+            <option>بنغلاديش</option>
+            <option>بنين</option>
+            <option>بوتان</option>
+            <option>بوتسوانا</option>
+            <option>بوركينا فاسو</option>
+            <option>بوروندي</option>
+            <option>بولندا</option>
+            <option>بوليفيا</option>
+            <option>بليز</option>
+            <option>بلجيكا</option>
+            <option>بلغاريا</option>
+            <option>تشيكيا (التشيك)</option>
+            <option>تشاد</option>
+            <option>تشيلي</option>
+            <option>توغو</option>
+            <option>تونغا</option>
+            <option>تونس</option>
+            <option>تيمور الشرقية</option>
+            <option>تركيا</option>
+            <option>تركمانستان</option>
+            <option>ترينيداد وتوباغو</option>
+            <option>تنزانيا</option>
+            <option>تايلاند</option>
+            <option>توفالو</option>
+            <option>جامايكا</option>
+            <option>جزر القمر</option>
+            <option>جزر مارشال</option>
+            <option>جزر سليمان</option>
+            <option>جمهورية أفريقيا الوسطى</option>
+            <option>جمهورية الدومينيكان</option>
+            <option>جنوب أفريقيا</option>
+            <option>جنوب السودان</option>
+            <option>جورجيا</option>
+            <option>جيبوتي</option>
+            <option>هايتي</option>
+            <option>هندوراس</option>
+            <option>هنغاريا</option>
+            <option>هولندا</option>
+            <option>فانواتو</option>
+            <option>فرنسا</option>
+            <option>فنلندا</option>
+            <option>فنزويلا</option>
+            <option>فيتنام</option>
+            <option>فيجي</option>
+            <option>قبرص</option>
+            <option>قطر</option>
+            <option>قيرغيزستان</option>
+            <option>كازاخستان</option>
+            <option>كرواتيا</option>
+            <option>كمبوديا</option>
+            <option>كندا</option>
+            <option>كوريا الجنوبية</option>
+            <option>كوريا الشمالية</option>
+            <option>كوستاريكا</option>
+            <option>كوبا</option>
+            <option>كينيا</option>
+            <option>كيريباتي</option>
+            <option>لاوس</option>
+            <option>لاتفيا</option>
+            <option>لبنان</option>
+            <option>لوكسمبورغ</option>
+            <option>ليبيا</option>
+            <option>ليبيريا</option>
+            <option>ليتوانيا</option>
+            <option>ليختنشتاين</option>
+            <option>ليسوتو</option>
+            <option>مالطا</option>
+            <option>مالي</option>
+            <option>ماليزيا</option>
+            <option>مدغشقر</option>
+            <option>مصر</option>
+            <option>المجر</option>
+            <option>مقدونيا الشمالية</option>
+            <option>ملاوي</option>
+            <option>المالديف</option>
+            <option>منغوليا</option>
+            <option>موريتانيا</option>
+            <option>موريشيوس</option>
+            <option>موزمبيق</option>
+            <option>مولدوفا</option>
+            <option>موناكو</option>
+            <option>ميانمار</option>
+            <option>ميكرونيزيا</option>
+            <option>ناميبيا</option>
+            <option>ناورو</option>
+            <option>نيبال</option>
+            <option>نيجيريا</option>
+            <option>نيكاراغوا</option>
+            <option>النيجر</option>
+            <option>نيوزيلندا</option>
+            <option>عُمان</option>
+            <option>غابون</option>
+            <option>غامبيا</option>
+            <option>غانا</option>
+            <option>غرينادا</option>
+            <option>غواتيمالا</option>
+            <option>غينيا</option>
+            <option>غينيا بيساو</option>
+            <option>غينيا الاستوائية</option>
+            <option>غيانا</option>
+            <option>رواندا</option>
+            <option>روسيا</option>
+            <option>رومانيا</option>
+            <option>زامبيا</option>
+            <option>زيمبابوي</option>
+            <option>سان مارينو</option>
+            <option>ساو تومي وبرينسيب</option>
+            <option>سريلانكا</option>
+            <option>سلوفاكيا</option>
+            <option>سلوفينيا</option>
+            <option>سنغافورة</option>
+            <option>سيراليون</option>
+            <option>سيشل</option>
+            <option>سوريا</option>
+            <option>سويسرا</option>
+            <option>سورينام</option>
+            <option>طاجيكستان</option>
+            <option>أوغندا</option>
+            <option>أوكرانيا</option>
+            <option>أوروغواي</option>
+            <option>أوزبكستان</option>
+          </select>
+          <span class="errmsg" id="e-yr">يُرجى اختيار الدولة</span>
+        </div>
+          <div class="fgroup">
+            <label class="flabel">اسم الموظف المسؤول <span class="req">*</span></label>
+            <input class="finput" id="f-oemp" type="text" placeholder="الاسم الكامل للمخوّل">
+          </div>
+          <div class="fgroup">
+            <label class="flabel">البريد الإلكتروني الرسمي <span class="req">*</span></label>
+            <input class="finput" id="f-oemail" type="email" placeholder="official@org.com" dir="ltr">
+          </div>
+          <div class="fgroup">
+            <label class="flabel">رقم التواصل <span class="req">*</span></label>
+            <input class="finput" id="f-ophone" type="tel" placeholder="+966xxxxxxxxx" dir="ltr">
+          </div>
+          <div class="fgroup">
+            <label class="flabel">الغرض من الطلب <span class="req">*</span></label>
+            <input class="finput" id="f-opurpose" type="text" placeholder="وصف موجز للغرض الرسمي">
+          </div>
+        </div>
+ 
+      </div>
+    </div>
+  </div>
+ 
+ 
+  <!-- ③ الخدمات -->
+  <div class="section-card">
+    <div class="section-head">
+      <div class="section-num">٣</div>
+      <div class="section-info">
+        <h2>اختيار الخدمات الإضافية</h2>
+        <p>حدد الخدمات المطلوبة وأدخل الكمية — الإجمالي يُحسب تلقائياً</p>
+      </div>
+    </div>
+    <div class="section-body">
+ 
+      <div class="svc-group">
+        <div class="svc-group-hdr">خدمات الإرسال</div>
+        <div class="svc-row" id="r-ship" onclick="toggleSvc('ship',this)">
+          <div class="svc-check">
+            <input type="checkbox" id="c-ship" data-p="115" onclick="event.stopPropagation();toggleSvc('ship',document.getElementById('r-ship'))">
+            <span class="svc-name">إرسال الوثائق إلى المدن داخل المملكة عن طريق البريد</span>
+          </div>
+          <span class="svc-badge">115 ر.س</span>
+          <input type="number" class="svc-qty" id="q-ship" value="1" min="1" max="99" disabled onclick="event.stopPropagation()" onchange="calcTot()">
+        </div>
+      </div>
+ 
+      <div class="svc-group">
+        <div class="svc-group-hdr">إصدار الوثائق والشهادات</div>
+        <div class="svc-row" id="r-c1" onclick="toggleSvc('c1',this)">
+          <div class="svc-check">
+            <input type="checkbox" id="c-c1" data-p="460" onclick="event.stopPropagation();toggleSvc('c1',document.getElementById('r-c1'))">
+            <span class="svc-name">إصدار شهادة تخرج — بدل تالف / بدل فاقد / تعديل بيانات</span>
+          </div>
+          <span class="svc-badge">460 ر.س</span>
+          <input type="number" class="svc-qty" id="q-c1" value="1" min="1" max="99" disabled onclick="event.stopPropagation()" onchange="calcTot()">
+        </div>
+        <div class="svc-row" id="r-c2" onclick="toggleSvc('c2',this)">
+          <div class="svc-check">
+            <input type="checkbox" id="c-c2" data-p="1725" onclick="event.stopPropagation();toggleSvc('c2',document.getElementById('r-c2'))">
+            <span class="svc-name">إصدار شهادة تخرج إضافية بعد المرة الأولى — بدل تالف / بدل فاقد / تعديل</span>
+          </div>
+          <span class="svc-badge">1,725 ر.س</span>
+          <input type="number" class="svc-qty" id="q-c2" value="1" min="1" max="99" disabled onclick="event.stopPropagation()" onchange="calcTot()">
+        </div>
+        <div class="svc-row" id="r-copy" onclick="toggleSvc('copy',this)">
+          <div class="svc-check">
+            <input type="checkbox" id="c-copy" data-p="11.5" onclick="event.stopPropagation();toggleSvc('copy',document.getElementById('r-copy'))">
+            <span class="svc-name">إصدار صورة طبق الأصل ومصدقة من شهادة التخرج</span>
+          </div>
+          <span class="svc-badge">11.50 ر.س</span>
+          <input type="number" class="svc-qty" id="q-copy" value="1" min="1" max="99" disabled onclick="event.stopPropagation()" onchange="calcTot()">
+        </div>
+        <div class="svc-row" id="r-trans" onclick="toggleSvc('trans',this)">
+          <div class="svc-check">
+            <input type="checkbox" id="c-trans" data-p="23" onclick="event.stopPropagation();toggleSvc('trans',document.getElementById('r-trans'))">
+            <span class="svc-name">إصدار سجل أكاديمي — عربي أو إنجليزي، صورة طبق الأصل</span>
+          </div>
+          <span class="svc-badge">23 ر.س</span>
+          <input type="number" class="svc-qty" id="q-trans" value="1" min="1" max="99" disabled onclick="event.stopPropagation()" onchange="calcTot()">
+        </div>
+      </div>
+ 
+      <div class="svc-group">
+        <div class="svc-group-hdr">الإفادات وتصديق الشهادات</div>
+        <div class="svc-row" id="r-grad" onclick="toggleSvc('grad',this)">
+          <div class="svc-check">
+            <input type="checkbox" id="c-grad" data-p="23" onclick="event.stopPropagation();toggleSvc('grad',document.getElementById('r-grad'))">
+            <span class="svc-name">إصدار إفادة لمن يهمه الأمر (إفادة خريج)</span>
+          </div>
+          <span class="svc-badge">23 ر.س</span>
+          <input type="number" class="svc-qty" id="q-grad" value="1" min="1" max="99" disabled onclick="event.stopPropagation()" onchange="calcTot()">
+        </div>
+        <div class="svc-row" id="r-eng" onclick="toggleSvc('eng',this)">
+          <div class="svc-check">
+            <input type="checkbox" id="c-eng" data-p="23" onclick="event.stopPropagation();toggleSvc('eng',document.getElementById('r-eng'))">
+            <span class="svc-name">إصدار خطاب إثبات دراسة باللغة الإنجليزية</span>
+          </div>
+          <span class="svc-badge">23 ر.س</span>
+          <input type="number" class="svc-qty" id="q-eng" value="1" min="1" max="99" disabled onclick="event.stopPropagation()" onchange="calcTot()">
+        </div>
+        <div class="svc-row" id="r-wes" onclick="toggleSvc('wes',this)">
+          <div class="svc-check">
+            <input type="checkbox" id="c-wes" data-p="23" onclick="event.stopPropagation();toggleSvc('wes',document.getElementById('r-wes'))">
+            <span class="svc-name">تعبئة وتصديق نموذج WES (World Education Services) للمبتعثين</span>
+          </div>
+          <span class="svc-badge">23 ر.س</span>
+          <input type="number" class="svc-qty" id="q-wes" value="1" min="1" max="99" disabled onclick="event.stopPropagation()" onchange="calcTot()">
+        </div>
+        <div class="svc-row" id="r-ver" onclick="toggleSvc('ver',this)">
+          <div class="svc-check">
+            <input type="checkbox" id="c-ver" data-p="23" onclick="event.stopPropagation();toggleSvc('ver',document.getElementById('r-ver'))">
+            <span class="svc-name">تعبئة وتصديق نموذج التحقق من صحة معلومات الخريج للجهات داخل أو خارج المملكة</span>
+          </div>
+          <span class="svc-badge">23 ر.س</span>
+          <input type="number" class="svc-qty" id="q-ver" value="1" min="1" max="99" disabled onclick="event.stopPropagation()" onchange="calcTot()">
+        </div>
+        <div class="svc-row" id="r-cust" onclick="toggleSvc('cust',this)">
+          <div class="svc-check">
+            <input type="checkbox" id="c-cust" data-p="115" onclick="event.stopPropagation();toggleSvc('cust',document.getElementById('r-cust'))">
+            <span class="svc-name">إصدار إفادات مخصصة تتطلب صياغة خاصة</span>
+          </div>
+          <span class="svc-badge">115 ر.س</span>
+          <input type="number" class="svc-qty" id="q-cust" value="1" min="1" max="99" disabled onclick="event.stopPropagation()" onchange="calcTot()">
+        </div>
+      </div>
+ 
+      <div class="totals-box">
+        <div class="tot-row"><span class="tl">المجموع الجزئي</span><span class="tv" id="t-sub">0.00 ر.س</span></div>
+        <div class="tot-row"><span class="tl">ضريبة القيمة المضافة (15%)</span><span class="tv" id="t-vat">0.00 ر.س</span></div>
+        <div class="tot-divider"></div>
+        <div class="tot-row final"><span class="tl">الإجمالي شامل الضريبة</span><span class="tv" id="t-tot">0.00 ر.س</span></div>
+      </div>
+    </div>
+  </div>
+
+   
+  <!-- ⑥ التعليمات والتعهد -->
+  <div class="section-card">
+    <div class="section-head">
+      <div class="section-num">٤</div>
+      <div class="section-info">
+        <h2>التعليمات والتعهد والإقرار</h2>
+        <p>يُرجى قراءة التعليمات ونص التعهد بعناية والتوقيع إلكترونياً</p>
+      </div>
+    </div>
+    <div class="section-body">
+ 
+      <!-- Instructions Box -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px 28px;margin-bottom:26px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--border);">
+          <div style="width:32px;height:32px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <div style="font-size:14px;font-weight:800;color:var(--navy);">التعليمات</div>
+            <div style="font-size:12px;color:var(--text-3);margin-top:1px;">يُرجى الاطلاع على جميع التعليمات قبل إرسال الطلب</div>
+          </div>
+        </div>
+ 
+        <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:10px;">
+          يتم تقديم استمارة الطلب مكتملة عبر البريد الإلكتروني لوحدة الخريجين على العنوان التالي:
+        </div>
+        <div style="background:var(--gold-bg);border:1px solid var(--gold-border);border-radius:8px;padding:10px 16px;margin-bottom:18px;font-size:13.5px;font-weight:800;color:var(--navy);direction:ltr;text-align:center;letter-spacing:.3px;">
+          DGS.Graduate@iau.edu.sa
+        </div>
+ 
+        <ol style="padding-right:18px;display:flex;flex-direction:column;gap:14px;">
+          <li style="font-size:13px;font-weight:600;color:var(--text-1);line-height:1.7;">
+            يجب التأكد من تعبئة جميع البيانات والتعهدات المطلوبة في الاستمارة قبل التقديم.
+          </li>
+          <li style="font-size:13px;font-weight:600;color:var(--text-1);line-height:1.7;">
+            تُرفق المستندات الداعمة بحسب نوع الخدمة المطلوبة كما يلي، مع إرفاق إيصال سداد رسوم الخدمة ضمن المرفقات:
+            <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px;">
+              <div style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:12px 16px;">
+                <div style="font-size:12px;font-weight:800;color:var(--navy);margin-bottom:8px;">في حال طلب إصدار أو إعادة إصدار شهادة تخرج (بدل تالف / بدل فاقد / تعديل بيانات):</div>
+                <ul style="padding-right:16px;display:flex;flex-direction:column;gap:4px;">
+                  <li style="font-size:12.5px;color:var(--text-2);font-weight:500;">صورة من الهوية الوطنية أو الإقامة</li>
+                  <li style="font-size:12.5px;color:var(--text-2);font-weight:500;">صورة من جواز السفر</li>
+                  <li style="font-size:12.5px;color:var(--text-2);font-weight:500;">صورة من الوثيقة المطلوب إعادة إصدارها (إن وجدت)</li>
+                  <li style="font-size:12.5px;color:var(--text-2);font-weight:500;">المستندات الرسمية الداعمة في حال تعديل الاسم أو أي بيانات أخرى</li>
+                </ul>
+              </div>
+              <div style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:12px 16px;">
+                <div style="font-size:12px;font-weight:800;color:var(--navy);margin-bottom:8px;">في حال طلب إصدار إفادة أو تصديق نموذج خارجي مثل WES أو جهات تحقق:</div>
+                <ul style="padding-right:16px;display:flex;flex-direction:column;gap:4px;">
+                  <li style="font-size:12.5px;color:var(--text-2);font-weight:500;">إرفاق نسخة واضحة من الوثائق والنماذج المطلوب تعبئتها وخطاب تفويض الطالب للجهة المختصة</li>
+                </ul>
+              </div>
+              <div style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:12px 16px;">
+                <div style="font-size:12px;font-weight:800;color:var(--navy);margin-bottom:8px;">في حال طلب إرسال الوثائق داخل المملكة أو خارجها:</div>
+                <ul style="padding-right:16px;display:flex;flex-direction:column;gap:4px;">
+                  <li style="font-size:12.5px;color:var(--text-2);font-weight:500;">تعبئة نموذج العنوان البريدي الكامل باللغة العربية والإنجليزية</li>
+                  <li style="font-size:12.5px;color:var(--text-2);font-weight:500;">التأكد من صحة البيانات</li>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li style="font-size:13px;font-weight:600;color:var(--text-1);line-height:1.7;">
+            يمكن للخريج طلب تعديل بيانات الشهادة <strong style="color:var(--gold);">مجاناً</strong> خلال <strong style="color:var(--navy);">30 يوماً</strong> من تاريخ استلامها، وبعد انتهاء المدة تُطبَّق رسوم الخدمة الإضافية حسب هذه الاستمارة.
+          </li>
+          <li style="font-size:13px;font-weight:600;color:var(--text-1);line-height:1.7;">
+            الرسوم <strong style="color:var(--error);">غير مستردة</strong> بعد تنفيذ الخدمة.
+          </li>
+        </ol>
+      </div>
+ 
+      <!-- Pledge Box -->
+      <div style="font-size:12px;font-weight:700;color:var(--text-3);letter-spacing:.5px;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+        <div style="flex:1;height:1px;background:var(--border)"></div>
+        نص التعهد والإقرار
+        <div style="flex:1;height:1px;background:var(--border)"></div>
+      </div>
+      <div class="pledge-box">
+        أتعهد أنا الموقع أدناه بصحة جميع البيانات والمرفقات المقدمة في هذا الطلب، وأتحمل كامل المسؤولية النظامية في حال ثبوت خلاف ذلك. كما أُقرّ بأن العنوان البريدي المدوّن صحيح، وأتحمل مسؤولية أي خطأ أو نقص فيه بما في ذلك تكاليف إعادة الإرسال.<br><br>
+        وأوافق على أن عمادة الدراسات العليا <strong>غير مسؤولة</strong> عن أي تأخير أو فقد في الشحن ناتج عن بيانات غير صحيحة أو ناقصة، وأُقرّ بأن <strong>الرسوم المدفوعة لا تُسترد بعد تنفيذ الخدمة</strong>.
+      </div>
+      <div class="check-row" id="agreeRow" onclick="toggleAgree()">
+        <input type="checkbox" id="agreeChk" onclick="event.stopPropagation();toggleAgree()">
+        <label for="agreeChk">أقرّ بأنني قرأت وفهمت جميع الشروط والأحكام المذكورة أعلاه وأوافق عليها</label>
+      </div>
+      <span class="errmsg" id="e-agree" style="margin-bottom:16px">يجب الموافقة على الشروط للمتابعة</span>
+      <div class="grid-2">
+        <div class="fgroup">
+          <label class="flabel">الاسم الكامل <span class="req">*</span></label>
+          <input class="finput" id="f-pname" type="text" placeholder="اسمك الكامل">
+          <span class="errmsg" id="e-pname">هذا الحقل مطلوب</span>
+        </div>
+        <div class="fgroup">
+          <label class="flabel">تاريخ التقديم <span class="req">*</span></label>
+          <input class="finput" id="f-pdate" type="date">
+          <span class="errmsg" id="e-pdate">يُرجى إدخال التاريخ</span>
+        </div>
+      </div>
+      <div class="sep"><div class="sep-line"></div><span class="sep-lbl">التوقيع الإلكتروني</span><div class="sep-line"></div></div>
+      <div class="fgroup">
+        <label class="flabel">التوقيع <span class="req">*</span></label>
+        <canvas id="sigCanvas" width="800" height="130"></canvas>
+        <div class="sig-actions">
+          <span class="sig-hint">وقّع بالماوس أو بالإصبع على الشاشة</span>
+          <button class="btn-clr" onclick="clearSig()">مسح التوقيع</button>
+        </div>
+        <span class="errmsg" id="e-sig">يُرجى التوقيع في الحقل أعلاه</span>
+      </div>
+    </div>
+
+      <!-- ⑤ العنوان البريدي -->
+      <div class="sep"><div class="sep-line"></div><span class="sep-lbl">بيانات العنوان البريدي</span><div class="sep-line"></div></div>
+    <div class="section-body">
+      <div id="addr-info" class="infobox" style="display:flex">
+        <span style="font-size:15px;flex-shrink:0">ℹ️</span>
+        <p>لم تختر خدمة الإرسال بالبريد بعد — ستظهر حقول العنوان تلقائياً عند تحديد تلك الخدمة في القسم السابق.</p>
+      </div>
+      <div id="addr-fields" style="display:none">
+        <div class="grid-2">
+          <div class="fgroup">
+            <label class="flabel">الاسم الكامل (المستلم) <span class="req">*</span></label>
+            <input class="finput" id="f-aname" type="text" placeholder="اسم المستلم كاملاً">
+            <span class="errmsg" id="e-aname">هذا الحقل مطلوب</span>
+          </div>
+          <div class="fgroup">
+            <label class="flabel">المدينة <span class="req">*</span></label>
+            <input class="finput" id="f-acity" type="text" placeholder="مثال: الدمام">
+            <span class="errmsg" id="e-acity">هذا الحقل مطلوب</span>
+          </div>
+          <div class="fgroup">
+            <label class="flabel">اسم الحي <span class="req">*</span></label>
+            <input class="finput" id="f-adist" type="text" placeholder="مثال: حي الشاطئ">
+            <span class="errmsg" id="e-adist">هذا الحقل مطلوب</span>
+          </div>
+          <div class="fgroup">
+            <label class="flabel">رقم الجوال <span class="req">*</span></label>
+            <input class="finput" id="f-aphone" type="tel" placeholder="05xxxxxxxx" dir="ltr">
+            <span class="errmsg" id="e-aphone">هذا الحقل مطلوب</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ 
+  <!-- ④ رفع الملفات -->
+  <div class="section-card">
+    <div class="section-head">
+      <div class="section-num">٥</div>
+      <div class="section-info">
+        <h2>رفع المستندات الداعمة</h2>
+        <p>PDF أو JPG أو PNG — الحد الأقصى 5 ميجابايت لكل ملف</p>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="grid-2">
+        <div class="fgroup">
+          <label class="flabel">صورة الهوية الوطنية / الإقامة <span class="req">*</span></label>
+          <div class="upload-zone" id="uz-id">
+            <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="pickFile(this,'uz-id','fn-id')">
+            <span class="uz-icon">🪪</span>
+            <div class="uz-title">انقر أو اسحب الملف هنا</div>
+            <div class="uz-hint">PDF · JPG · PNG — حتى 5 MB</div>
+            <div class="uz-fname" id="fn-id"></div>
+          </div>
+          <span class="errmsg" id="e-idfile">يُرجى رفع صورة الهوية</span>
+        </div>
+        <div class="fgroup">
+          <label class="flabel">صورة جواز السفر</label>
+          <div class="upload-zone" id="uz-pass">
+            <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="pickFile(this,'uz-pass','fn-pass')">
+            <span class="uz-icon">📗</span>
+            <div class="uz-title">انقر أو اسحب الملف هنا</div>
+            <div class="uz-hint">PDF · JPG · PNG — حتى 5 MB</div>
+            <div class="uz-fname" id="fn-pass"></div>
+          </div>
+        </div>
+        <div class="fgroup col-full">
+          <label class="flabel">مستندات داعمة إضافية</label>
+          <div class="upload-zone" id="uz-extra">
+            <input type="file" accept=".pdf,.jpg,.jpeg,.png" multiple onchange="pickFile(this,'uz-extra','fn-extra')">
+            <span class="uz-icon">📎</span>
+            <div class="uz-title">انقر لرفع ملفات إضافية (يمكن رفع أكثر من ملف)</div>
+            <div class="uz-hint">PDF · JPG · PNG</div>
+            <div class="uz-fname" id="fn-extra"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+
+  <!-- ⑦ الدفع -->
+  <div class="section-card">
+    <div class="section-head">
+      <div class="section-num">٦</div>
+      <div class="section-info">
+        <h2>الدفع الإلكتروني</h2>
+        <p>أدخل بيانات بطاقتك البنكية بأمان لإتمام الطلب</p>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="pay-total-banner">
+        <div>
+          <div class="lbl">المبلغ المستحق للدفع</div>
+          <div class="amt"><span style="font-size:14px;font-weight:600;margin-left:4px;color:var(--text-2)">ر.س</span><span id="pay-amt">0.00</span></div>
+        </div>
+        <div style="font-size:34px">💳</div>
+      </div>
+ 
+      <!-- Card visual -->
+      <div class="card-vis">
+        <div class="card-chip"></div>
+        <div class="card-num" id="cv-num">•••• &nbsp;•••• &nbsp;•••• &nbsp;••••</div>
+        <div class="card-btm">
+          <div>
+            <div class="card-lbl">CARD HOLDER</div>
+            <div class="card-val" id="cv-name">الاسم الكامل</div>
+          </div>
+          <div>
+            <div class="card-lbl">EXPIRES</div>
+            <div class="card-val" id="cv-exp">MM / YY</div>
+          </div>
+        </div>
+      </div>
+ 
+      <div class="grid-2">
+        <div class="fgroup col-full">
+          <label class="flabel">اسم حامل البطاقة <span class="req">*</span></label>
+          <input class="finput" id="f-cname" type="text" placeholder="الاسم كما يظهر على البطاقة"
+            oninput="document.getElementById('cv-name').textContent=this.value||'الاسم الكامل'">
+          <span class="errmsg" id="e-cname">هذا الحقل مطلوب</span>
+        </div>
+        <div class="fgroup col-full">
+          <label class="flabel">رقم البطاقة <span class="req">*</span></label>
+          <input class="finput" id="f-cnum" type="text" placeholder="•••• •••• •••• ••••" maxlength="19" dir="ltr" oninput="fmtCard(this)">
+          <span class="errmsg" id="e-cnum">أدخل رقم بطاقة مكوّن من 16 رقماً</span>
+        </div>
+        <div class="fgroup">
+          <label class="flabel">تاريخ الانتهاء <span class="req">*</span></label>
+          <input class="finput" id="f-cexp" type="text" placeholder="MM/YY" maxlength="5" dir="ltr" oninput="fmtExp(this)">
+          <span class="errmsg" id="e-cexp">تاريخ انتهاء غير صحيح</span>
+        </div>
+        <div class="fgroup">
+          <label class="flabel">رمز الأمان CVV <span class="req">*</span></label>
+          <input class="finput" id="f-cvv" type="password" placeholder="•••" maxlength="4" dir="ltr">
+          <span class="errmsg" id="e-cvv">أدخل رمز الأمان</span>
+        </div>
+      </div>
+ 
+      <div class="check-row save-row" onclick="this.classList.toggle('checked')">
+        <input type="checkbox" id="saveCard" onclick="event.stopPropagation()">
+        <label for="saveCard">حفظ بيانات البطاقة للدفعات القادمة (مشفّرة وآمنة)</label>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- Submit -->
+  <div class="submit-wrap">
+    <p class="submit-note">بالنقر على "إرسال الطلب" تؤكد صحة جميع البيانات والموافقة على الشروط. لا يمكن التراجع بعد الإرسال.</p>
+    <button class="btn-submit" onclick="submitForm()">
+      <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      إرسال الطلب وإتمام الدفع
+    </button>
+  </div>
+ 
+</div><!-- /page -->
+ 
+<!-- Sticky bar -->
+<div class="sticky-bar" id="stickyBar">
+  <div class="sticky-inner">
+    <div>
+      <div class="sb-label">الإجمالي المستحق</div>
+      <div class="sb-amt" id="sb-amt">0.00 ر.س</div>
+    </div>
+    <button class="btn-submit" style="font-size:13px;padding:10px 24px" onclick="document.querySelector('.submit-wrap').scrollIntoView({behavior:'smooth'})">
+      الانتقال للدفع ↓
+    </button>
+  </div>
+</div>
+ 
+<!-- Success Modal -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-modal">
+    <div class="success-check">
+      <svg viewBox="0 0 36 36" fill="none"><polyline points="7,19 15,27 29,11" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <h2>تم إرسال طلبك بنجاح!</h2>
+    <p>شكراً لك. تم استلام طلبك وسيتم مراجعته خلال <strong>3 أيام عمل</strong> من قِبل عمادة الدراسات العليا. سيصلك بريد إلكتروني تأكيدي على العنوان المسجّل.</p>
+    <div class="ref-box">
+      <div class="rl">رقم مرجع الطلب</div>
+      <div class="rv" id="refNum">DGS-2024-00000</div>
+    </div>
+    <div style="text-align:right;background:var(--surface);border-radius:12px;padding:16px 20px;margin-bottom:22px;font-size:13px;color:var(--navy);font-weight:600;line-height:1.8">
+      📧 للمتابعة: <strong>DGS.Graduate@iau.edu.sa</strong><br>
+      ⏱ وقت المعالجة: 3 أيام عمل<br>
+      📞 للاستفسار: تواصل عبر البريد الإلكتروني أو الجوال المسجّل
+    </div>
+    <button class="btn-close" onclick="closeSuccess()">إغلاق وتقديم طلب جديد</button>
+  </div>
+</div>
+<script src="razan2.js"></script>
+</body>
+</html>
