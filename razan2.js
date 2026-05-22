@@ -84,12 +84,12 @@ function pickFile(input,zoneId,fnId){
  
 // ── Card formatting ──
 function fmtCard(inp){
-  var v=inp.value.replace(/\\D/g,'').substring(0,16);
+  var v=inp.value.replace(/\D/g,'').substring(0,16);
   inp.value=v.match(/.{1,4}/g)?.join(' ')||v;
   document.getElementById('cv-num').textContent=inp.value||'•••• •••• •••• ••••';
 }
 function fmtExp(inp){
-  var v=inp.value.replace(/\\D/g,'').substring(0,4);
+  var v=inp.value.replace(/\D/g,'').substring(0,4);
   if(v.length>=2)v=v.substring(0,2)+'/'+v.substring(2);
   inp.value=v;
   document.getElementById('cv-exp').textContent=v||'MM / YY';
@@ -137,9 +137,9 @@ function validateAll(){
     if(!v.trim()){errSet(f,true);ok=false;}else errSet(f,false);
   });
   var em=document.getElementById('f-email').value;
-  if(em&&!/\\S+@\\S+\\.\\S+/.test(em)){errSet('email',true);ok=false;}
+  if(em&&!/\S+@\S+\.\S+/.test(em)){errSet('email',true);ok=false;}
   var ph=document.getElementById('f-phone').value;
-  if(ph&&!/^05\\d{8}$/.test(ph)){errSet('phone',true);ok=false;}
+  if(ph&&!/^05\d{8}$/.test(ph)){errSet('phone',true);ok=false;}
   // Section 3
   if(!Object.values(svcs).some(Boolean)){alert('يُرجى اختيار خدمة واحدة على الأقل');ok=false;}
   // Section 4
@@ -168,7 +168,7 @@ function validateAll(){
     var v=(document.getElementById('f-'+f)||{}).value||'';
     errSet(f,!v.trim());if(!v.trim())ok=false;
   });
-  var cn=document.getElementById('f-cnum').value.replace(/\\s/g,'');
+  var cn=document.getElementById('f-cnum').value.replace(/\s/g,'');
   if(cn&&cn.length!==16){errSet('cnum',true);ok=false;}
   return ok;
 }
@@ -181,9 +181,41 @@ function submitForm(){
     if(first)first.scrollIntoView({behavior:'smooth',block:'center'});
     return;
   }
-  var ref='DGS-'+new Date().getFullYear()+'-'+Math.floor(10000+Math.random()*90000);
-  document.getElementById('refNum').textContent=ref;
-  document.getElementById('successOverlay').classList.add('show');
+
+  // تجميع البيانات ومطابقة الـ Keys مع ملف الـ PHP وهيكلة الداتابيز المحدثة
+  var payload = {
+    name: document.getElementById('f-name').value,
+    national_id: document.getElementById('f-id').value,             // الهوية الوطنية
+    university_id: document.getElementById('f-sid').value,         // الرقم الجامعي
+    college: document.getElementById('f-col').value,               // الكلية
+    program: document.getElementById('f-prog').value,              // البرنامج/التخصص
+    graduation_year: document.getElementById('f-yr').value,        // سنة التخرج
+    email: document.getElementById('f-email').value,
+    phone: document.getElementById('f-phone').value
+  };
+
+  // إرسال البيانات عبر الـ Fetch إلى ملف submit.php
+  fetch('submit.php', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  })
+  .then(function(res) { return res.json(); })
+  .then(function(data) {
+    if(data.status === 'success') {
+      // إظهار نافذة النجاح مع رقم المعاملة التلقائي القادم من قاعدة البيانات
+      document.getElementById('refNum').textContent = "REQ-" + data.ref_num;
+      document.getElementById('successOverlay').classList.add('show');
+    } else {
+      alert('تنبيه من السيرفر: ' + data.message);
+    }
+  })
+  .catch(function(err) {
+    console.error('Error:', err);
+    alert('فشل الاتصال بالسيرفر، تأكد من تشغيل بيئة الـ PHP المحلية');
+  });
 }
  
 function closeSuccess(){
@@ -236,3 +268,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+
