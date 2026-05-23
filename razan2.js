@@ -195,7 +195,7 @@ function submitForm(){
   };
 
   // إرسال البيانات عبر الـ Fetch إلى ملف submit.php
-  fetch('submit.php', {
+  fetch('https://iaucertificateform.infinityfreeapp.com/razan.php', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
